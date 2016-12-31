@@ -4,10 +4,11 @@ from random import (randint, randrange, random)
 from operator import add
 
 BLACK = (0, 0, 0)
-WHITE = (255, 255, 255)
+STARCOLOR = (255, 255, 255)
 
-DENSITY = 0.05
+DENSITY = 0.005
 SPEED = 1
+STARSIZE = 3
 
 class Star():
     def __init__(self, rect):
@@ -28,8 +29,11 @@ class Star():
 
     
     def display(self, screen, color):
-        pos = [int(self.pos[0]), int(self.pos[1])]
-        screen.set_at(pos, color)
+        x, y = int(self.pos[0]), int(self.pos[1])
+        for i in range(STARSIZE):
+            for j in range(STARSIZE):
+                pos = (x + i, y + j)
+                screen.set_at(pos, color)
 
         
     def reset(self):
@@ -52,4 +56,4 @@ class StarfieldShape(BaseShape):
             if not self.polygon.contains_point(star.get_pos()):
                 star.reset()
             else:
-                star.display(self.screen, WHITE)
+                star.display(self.screen, STARCOLOR)
