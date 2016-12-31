@@ -51,7 +51,6 @@ class StarfieldShape(BaseShape):
         
     def draw(self):
         for star in self.stars:
-            star.display(self.screen, BLACK)
             star.move()
             if not self.polygon.contains_point(star.get_pos()):
                 star.reset()

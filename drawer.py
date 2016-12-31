@@ -17,10 +17,6 @@ class Drawer():
 
         
     def clear_points(self):
-        black = (0, 0, 0)
-        if len(self.points) > 1:
-            pygame.draw.lines(self.screen, black, False, self.points)
-        
         self.points = []
 
         
@@ -30,10 +26,8 @@ class Drawer():
     
     def draw(self):
         white = (255, 255, 255)        
-        black = (0, 0, 0)
         if len(self.points) > 0:
             mouse_pos = pygame.mouse.get_pos()
-            pygame.draw.line(self.screen, black, self.points[-1], self.last_mouse_pos)
             pygame.draw.line(self.screen, white, self.points[-1], mouse_pos)
             self.last_mouse_pos = mouse_pos
         if len(self.points) > 1:
