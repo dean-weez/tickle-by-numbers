@@ -1,6 +1,7 @@
 import sys, pygame
 from pygame.locals import *
 from shapes.starfield_shape import StarfieldShape
+from shapes.color_shift_shape import ColorShiftShape
 from polygon import Polygon
 
 class Drawer():
@@ -40,8 +41,8 @@ def main():
 
     size = width, height = 800, 600
     black = (0, 0, 0)
-    #screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
-    screen = pygame.display.set_mode(size)
+    screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
+    #screen = pygame.display.set_mode(size)
     screen.fill(black)
     drawer = Drawer(screen)
     clock = pygame.time.Clock()
@@ -62,12 +63,18 @@ def main():
                 if event.key == K_d:
                     print ('starting draw')
                     drawing = True
-                if event.key == K_f and drawing:
+                if event.key == K_s and drawing:
                     print ('finishing draw')
                     pts = drawer.get_points()
                     polygon = Polygon(pts)
-                    
                     shapes.append(StarfieldShape(screen, polygon))
+                    drawer.clear_points()
+                    drawing = False
+                if event.key == K_c and drawing:
+                    print ('finishing draw')
+                    pts = drawer.get_points()
+                    polygon = Polygon(pts)
+                    shapes.append(ColorShiftShape(screen, polygon))
                     drawer.clear_points()
                     drawing = False
             if event.type == MOUSEBUTTONDOWN and not clicking:
