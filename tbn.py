@@ -23,6 +23,8 @@ def main():
     while going:
         clock.tick(30)
 
+        screen.fill(black)
+
         # Handle any user input
         for event in pygame.event.get():
             if event.type == QUIT:
@@ -31,22 +33,24 @@ def main():
                 if event.key == K_q:
                     going = False
                 if event.key == K_d:
-                    print ('starting draw')
                     drawing = True
                 if event.key == K_s and drawing:
-                    print ('finishing draw')
                     pts = drawer.get_points()
                     polygon = Polygon(pts)
                     shapes.append(StarfieldShape(screen, polygon))
                     drawer.clear_points()
                     drawing = False
                 if event.key == K_c and drawing:
-                    print ('finishing draw')
                     pts = drawer.get_points()
                     polygon = Polygon(pts)
                     shapes.append(ColorShiftShape(screen, polygon))
                     drawer.clear_points()
                     drawing = False
+                if event.key == K_b:
+                    if drawing:
+                        drawer.remove_point()
+                    elif len(shapes) > 0:
+                        shapes.pop()
             if event.type == MOUSEBUTTONDOWN and not clicking:
                 x, y = pygame.mouse.get_pos()
                 if drawing:
